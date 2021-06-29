@@ -13,25 +13,31 @@ import Button from 'react-native-button';
 //storage
 import {MMKV} from 'react-native-mmkv';
 
+import GoogleSearch from './GoogleSearch';
+
 const SearchCard = ({item}) => {
   const {colors} = useTheme();
-  let obj = item?.pagemap?.metatags[0];
   let obj2 = item.pagemap?.cse_thumbnail[0];
+  const name = item.title;
+  const namewtIMDB = name.slice(0, name.length - 6);
   const data = {
     key: Date.now(),
-    name: item.title,
+    name: namewtIMDB,
     link: item.link,
     watched: false,
     image: obj2.src,
   };
   const handleAdd = () => {
     const oldList = MMKV.getString('movies');
-    const parsedOldList = JSON.parse(oldList);
-    if (!parsedOldList) {
-      MMKV.set('movies', JSON.stringify([data]));
+    // console.log(oldList);
+    if (oldList) {
+      const parsedOldList = JSON.parse(oldList);
+      parsedOldList.push(data);
+      MMKV.set('movies', JSON.stringify(parsedOldList));
+    } else {
+      let newList = [data];
+      MMKV.set('movies', JSON.stringify(newList));
     }
-    parsedOldList.push(data);
-    MMKV.set('movies', JSON.stringify(parsedOldList));
   };
   return (
     <TouchableOpacity
@@ -45,21 +51,21 @@ const SearchCard = ({item}) => {
         ]}>
         <Image source={{uri: obj2.src}} style={styles.thumbnail} />
         <View style={styles.col1}>
-          <Text style={[styles.site, {color: colors.text}]}>
-            {obj['og:site_name']}
-          </Text>
-          <Text style={[styles.site, {color: colors.text}]}>{item.title}</Text>
-          <Button
-            style={[styles.button, {color: colors.text}]}
-            containerStyle={[
-              styles.buttonContainer,
-              {borderColor: colors.border},
-            ]}
-            onPress={() => {
-              handleAdd();
-            }}>
-            Add to watchList
-          </Button>
+          <Text style={[styles.site, {color: colors.text}]}>{namewtIMDB}</Text>
+          <View style={styles.buttons}>
+            <GoogleSearch />
+            <Button
+              style={[styles.button, {color: colors.text}]}
+              containerStyle={[
+                styles.buttonContainer,
+                {borderColor: colors.border},
+              ]}
+              onPress={() => {
+                handleAdd();
+              }}>
+              Add to watchList
+            </Button>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -117,6 +123,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 2,
     textAlign: 'center',
+  },
+  buttons: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignContent: 'center',
   },
 });
 export default SearchCard;

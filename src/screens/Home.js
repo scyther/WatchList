@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {useTheme} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {SafeAreaView, StatusBar, FlatList} from 'react-native';
@@ -11,14 +12,15 @@ const Home = () => {
   const fetchData = () => {
     setRefreshing(true);
     const storedList = MMKV.getString('movies');
-    console.log(storedList);
-    if (storedList === undefined) {
+    // console.log(storedList);
+    if (storedList) {
+      const parsedList = JSON.parse(storedList);
+      setData(parsedList);
+      setRefreshing(false);
+    } else {
       setData([]);
       setRefreshing(false);
     }
-    const parsedList = JSON.parse(storedList);
-    setData(parsedList);
-    setRefreshing(false);
   };
 
   useEffect(() => {
@@ -31,7 +33,6 @@ const Home = () => {
   return (
     // eslint-disable-next-line react-native/no-inline-styles
     <SafeAreaView style={{flex: 1}}>
-      {console.log(data)}
       <StatusBar
         translucent={true}
         animated={true}
@@ -41,8 +42,7 @@ const Home = () => {
       <FlatList
         data={data}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
-        style={{backgroundColor: colors.background}}
+        style={{backgroundColor: colors.background,padding:9}}
         ListEmptyComponent={<EmptyList />}
         refreshing={refreshing}
         onRefresh={() => {

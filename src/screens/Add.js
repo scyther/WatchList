@@ -516,16 +516,20 @@ const Add = () => {
   ]);
   const [loading, setLoading] = useState(false);
   const searchMovie = () => {
-    setLoading(true);
-    if (query !== '') {
+    if (query === '') {
+      console.error('Enter Something');
+    } else {
+      setLoading(true);
       fetch(
         `https://www.googleapis.com/customsearch/v1?key=${GSEARCH_API_KEY}&cx=${CX}&q=${query}`,
       )
-        .then(response => setData(response.items))
+        .then(response => {
+          setData(response.items);
+          console.log(response);
+        })
         .catch(error => console.error(error))
         .finally(() => setLoading(false));
     }
-    console.error('Enter Something');
   };
 
   const renderItem = ({item}) => <SearchCard item={item} />;
