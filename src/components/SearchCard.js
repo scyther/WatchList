@@ -40,35 +40,35 @@ const SearchCard = ({item}) => {
     }
   };
   return (
-    <TouchableOpacity
-      onPress={() => {
-        Linking.openURL(item.link);
-      }}>
-      <View
-        style={[
-          styles.card,
-          {backgroundColor: colors.card, borderColor: colors.text},
-        ]}>
-        <Image source={{uri: obj2.src}} style={styles.thumbnail} />
-        <View style={styles.col1}>
-          <Text style={[styles.site, {color: colors.text}]}>{namewtIMDB}</Text>
-          <View style={styles.buttons}>
-            <GoogleSearch />
-            <Button
-              style={[styles.button, {color: colors.text}]}
-              containerStyle={[
-                styles.buttonContainer,
-                {borderColor: colors.border},
-              ]}
-              onPress={() => {
-                handleAdd();
-              }}>
-              Add to watchList
-            </Button>
-          </View>
+    <View
+      style={[
+        styles.card,
+        {backgroundColor: colors.card, borderColor: colors.text},
+      ]}>
+      <Image source={{uri: obj2.src}} style={styles.thumbnail} />
+      <View style={styles.col1}>
+        <Text style={[styles.site, {color: colors.text}]}>{namewtIMDB}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            Linking.openURL(`http://www.google.com/search?q=${namewtIMDB}`);
+          }}>
+          <GoogleSearch />
+        </TouchableOpacity>
+        <View style={styles.buttons}>
+          <Button
+            style={[styles.button, {color: colors.text}]}
+            containerStyle={[
+              styles.buttonContainer,
+              {borderColor: colors.border},
+            ]}
+            onPress={() => {
+              handleAdd();
+            }}>
+            Add to WatchList
+          </Button>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   col1: {
     display: 'flex',
     flexDirection: 'column',
-    flex: 2,
+    flex: 3,
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
@@ -127,9 +127,6 @@ const styles = StyleSheet.create({
   buttons: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    alignContent: 'center',
   },
 });
 export default SearchCard;

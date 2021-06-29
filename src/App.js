@@ -33,11 +33,11 @@ const App = () => {
   const DarkTheme = {
     dark: true,
     colors: {
-      primary: '#03203C',
-      background: Colors.darker,
-      card: 'black',
-      text: '#ecf0f1',
-      border: '#95a5a6',
+      primary: '#1292B4',
+      background: Colors.lighter,
+      card: Colors.light,
+      text: '#000',
+      border: '#444',
       notification: '#222',
     },
   };

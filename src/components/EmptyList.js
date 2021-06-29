@@ -14,10 +14,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'orange',
+    paddingVertical: 20,
   },
   text: {
-    fontSize: 15,
+    fontSize: 20,
     fontFamily: 'Oswald-Regular',
+    fontWeight: '900',
   },
 });
 

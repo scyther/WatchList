@@ -10,13 +10,15 @@ import {
   Linking,
 } from 'react-native';
 import Button from 'react-native-button';
+import CheckBox from '@react-native-community/checkbox';
+
 import GoogleSearch from './GoogleSearch';
 
-const Card = ({item, deleteMovie, markMovie}) => {
+const WatchedCard = ({item, deleteMovie, markMovie}) => {
   const {colors} = useTheme();
 
   return (
-    <View style={[styles.card, {backgroundColor: colors.card}]}>
+    <View style={[styles.card, {backgroundColor: '#F7CD2E'}]}>
       <Image style={styles.image} source={{uri: item.image}} />
       <View style={styles.discription}>
         <Text style={[{color: colors.text}, styles.name]}>{item.name}</Text>
@@ -27,16 +29,14 @@ const Card = ({item, deleteMovie, markMovie}) => {
           <GoogleSearch />
         </TouchableOpacity>
         <View style={styles.buttons}>
-          <Button
-            style={{fontSize: 16, color: '#FAFAFA'}}
-            styleDisabled={{color: 'red'}}
-            containerStyle={[
-              styles.buttonContainer,
-              {backgroundColor: 'green'},
-            ]}
-            onPress={() => markMovie(item.key)}>
-            Completed
-          </Button>
+          <CheckBox
+            style={styles.CheckBox}
+            disabled={false}
+            value={item.watched}
+            onValueChange={() => {
+              markMovie(item.key);
+            }}
+          />
           <Button
             style={{fontSize: 16, color: '#FAFAFA'}}
             styleDisabled={{color: 'red'}}
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
   },
+
   image: {
     height: 100,
     width: 100,
@@ -96,6 +97,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'black',
   },
+  CheckBox: {
+    backgroundColor: '#03203C',
+  },
 });
 
-export default Card;
+export default WatchedCard;

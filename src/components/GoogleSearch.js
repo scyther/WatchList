@@ -1,20 +1,24 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, Image} from 'react-native';
+import {View, Image, Text} from 'react-native';
 
 const GoogleSearch = () => {
   return (
     <View
       style={{
         backgroundColor: '#FAFAFA',
-        borderRadius: 2,
+        borderRadius: 20,
         padding: 4,
-        margin: 5,
+        margin: 2,
+        flexDirection: 'row',
+        borderWidth: 2,
+        marginBottom: 8,
       }}>
       <Image
-        style={{width: 25, height: 25}}
+        style={{width: 15, height: 15}}
         source={require('../assets/image/Google.png')}
       />
+      <Text style={{fontSize: 12}}>Search</Text>
     </View>
   );
 };
