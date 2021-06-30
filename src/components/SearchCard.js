@@ -1,5 +1,6 @@
+/* eslint-disable react-native/no-inline-styles */
 import {useTheme} from '@react-navigation/native';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Image,
@@ -16,6 +17,7 @@ import {MMKV} from 'react-native-mmkv';
 import GoogleSearch from './GoogleSearch';
 
 const SearchCard = ({item}) => {
+  const [disabled, setDisabled] = useState(false);
   const {colors} = useTheme();
   let obj2 = item.pagemap?.cse_thumbnail[0];
   const name = item.title;
@@ -61,8 +63,13 @@ const SearchCard = ({item}) => {
               styles.buttonContainer,
               {borderColor: colors.border},
             ]}
+            disabled={disabled}
+            styleDisabled={{color: 'white'}}
+            disabledContainerStyle={{backgroundColor: 'grey'}}
             onPress={() => {
               handleAdd();
+
+              setDisabled(true);
             }}>
             Add to WatchList
           </Button>

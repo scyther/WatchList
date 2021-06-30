@@ -35,7 +35,7 @@ const Card = ({item, deleteMovie, markMovie}) => {
               {backgroundColor: 'green'},
             ]}
             onPress={() => markMovie(item.key)}>
-            Completed
+            Mark Completed
           </Button>
           <Button
             style={{fontSize: 16, color: '#FAFAFA'}}
